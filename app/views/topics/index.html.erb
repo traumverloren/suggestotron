@@ -3,7 +3,9 @@
 <ul>
   <% @topics.each do |topic| %>
     <li>
-      <%= link_to topic.title, topic_path(topic) %>
+      <%= link_to topic.title, topic_path(topic) %> <%= pluralize(topic.votes.count, 'vote') %> | <%= button_to '+1', upvote_topic_path(topic), method: :post %>
     </li>
   <% end %>
-</ul>  
+</ul>
+
+<p><%= link_to 'Create a New Topic', new_topic_path %>

@@ -44,6 +44,12 @@ class TopicsController <ApplicationController
     redirect_to topics_path
   end
 
+  def upvote
+    @topic = Topic.find(params[:id])
+    @topic.votes.create
+    redirect_to(topics_path)
+  end
+
   private
 
   def topic_params
