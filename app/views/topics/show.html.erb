@@ -1,0 +1,7 @@
+<h1>Show Topic</h1>
+
+
+<p><strong>Title: </strong><%= @topic.title %></p>
+<p><strong>Description: </strong><%= @topic.description%></p>
+
+<p><%= link_to 'Back to Topics', topics_path %> | <%= link_to 'Edit Topic', edit_topic_path %> | <%= link_to 'Delete Topic', topic_path(@topic), data: {confirm: "Are you sure you want to delete '#{@topic.title}'?"}, method: :delete %></p>

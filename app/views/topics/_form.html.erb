@@ -1,0 +1,18 @@
+
+    <%= form_for @topic do |f| %>
+    <ul>
+      <% @topic.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+      <% end %>
+    </ul>
+    <p>
+      <%= f.label :title %>
+      <%= f.text_field :title %><br/>
+    </p>
+    <p>
+      <%= f.label :description %>
+      <%= f.text_area :description %><br/>
+    </p>
+      <%= f.submit "Submit" %>
+    </p>
+    <% end %>
