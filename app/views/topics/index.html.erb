@@ -1,11 +1,17 @@
 <h1>All Topics</h1>
 
-<ul>
+<table>
+  <tr>
+    <th>Title</th>
+  </tr>
   <% @topics.each do |topic| %>
-    <li>
-      <%= link_to topic.title, topic_path(topic) %> <%= pluralize(topic.votes.count, 'vote') %> | <%= button_to '+1', upvote_topic_path(topic), method: :post %>
-    </li>
+    <tr>
+      <td><%= link_to topic.title, topic %></td>
+      <td><%= pluralize(topic.votes.count, 'vote') %></td>
+      <td><%= button_to '+1', upvote_topic_path(topic), method: :post %></td>
+      <td><%= button_to '-1', downvote_topic_path(topic), method: :post %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
 
 <p><%= link_to 'Create a New Topic', new_topic_path %>

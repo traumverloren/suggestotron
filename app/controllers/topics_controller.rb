@@ -2,6 +2,7 @@ class TopicsController <ApplicationController
 
   def index
     @topics = Topic.all
+    @topics = @topics.sort_by{ |p| p.votes.count }.reverse
   end
 
   def show
@@ -15,7 +16,7 @@ class TopicsController <ApplicationController
   def create
     @topic = Topic.new(topic_params)
     if @topic.save
-      redirect_to topic_path(@topic), notice: "Topic '#{@topic.title}' was successfully created!"
+      redirect_to topics_path, notice: "Topic '#{@topic.title}' was successfully created!"
     else
       flash[:notice] = "Please check your topic and try again!"
       render 'new'
@@ -35,7 +36,7 @@ class TopicsController <ApplicationController
     if @topic.update(topic_params)
       flash[:notice] = "Topic Updated!"
     end
-    redirect_to @topic
+    redirect_to topics_path
   end
 
   def destroy
@@ -48,6 +49,18 @@ class TopicsController <ApplicationController
     @topic = Topic.find(params[:id])
     @topic.votes.create
     redirect_to(topics_path)
+  end
+
+
+  def downvote
+    @topic = Topic.find(params[:id])
+    if @topic.votes.count >0
+      @topic.votes.last.destroy
+      redirect_to(topics_path)
+    else
+      flash[:notice] = "Unable to downvote '#{@topic.title}' anymore!"
+      redirect_to(topics_path)
+    end
   end
 
   private
